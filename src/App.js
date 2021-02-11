@@ -6,6 +6,7 @@ import ContactTable from './ContactTable';
 import ContactMemoryTable from './ContactMemoryTable';
 import ContactForm from './ContactForm';
 import { Grid, Panel } from 'metro4-react';
+import { Icon }  from 'metro4-react';
 
 const Page = ({ title }) => (
     <div className="App">
@@ -40,43 +41,65 @@ const Home = (props) => (
 class App extends React.Component {
     constructor() {
         super();
+        // first start
+        this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: false, items: [] };
+        let localData = localStorage.getItem('localData');
         
-  //      this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: false, items: [] };
- /*       this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '',
+        
+        // regular start
+        if (typeof localData === 'undefined') {
+        
+            this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: true,
                 items:
                     [
                       {
-                        "username": "ignat99",
+                        "username": "ignat9",
                         "email": "ignat99@gmail.com",
                         "birthday": "",
                         "checkbox": "",
-                        "picture": ""
-                      }
-                    ]
-            };
-*/
-       
-        
-        if (typeof localData === 'undefined') { 
-            this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '',
-                items:
-                    [
-                      {
-                        "username": "ignat99",
-                        "email": "ignat99@gmail.com",
-                        "birthday": "",
-                        "checkbox": "",
-                        "picture": ""
+                        "picture": "",
+                        "formvalid": false,
                       }
                     ]
             }; 
-        } else {
-            this.state.formvalid = true;
-//            let localData = localStorage.getItem('localData');
- //           this.state = JSON.parse(localData);
-        }       
+            
+
+            
+                 let items = [...this.state.items];
+            
+                    // We put old object to array
+        items.push({
+            username: this.state.username,
+            email: this.state.email,
+            birthday: this.state.birthday,
+            checkbox: this.state.checkbox,
+            picture: this.state.picture,
+            formvalid: this.state.formvalid
+        });
+            
+                       // Every time when push to button we put to local data
+        localStorage.setItem('localData', JSON.stringify(this.state));         
+            
+ 
+            let localData = localStorage.getItem('localData');
+            this.state = JSON.parse(localData);
+            
+                         this.setState({
+            items,
+            username: '',
+            email: '',
+            birthday: '',
+            checkbox: '',
+            picture: '',
+            formvalid: true
+        });
+            
+        }  else {
+            this.state = JSON.parse(localData);
+            
+        } 
         
-        
+   
         
     };
     
@@ -88,16 +111,20 @@ class App extends React.Component {
         
         
         
-        
+        // We put old object to array
         items.push({
             username: this.state.username,
             email: this.state.email,
             birthday: this.state.birthday,
             checkbox: this.state.checkbox,
-            picture: this.state.picture
+            picture: this.state.picture,
+            formvalid: this.state.formvalid
         });
         
+        // Every time when push to button we put to local data
         localStorage.setItem('localData', JSON.stringify(this.state));
+        let localData = localStorage.getItem('localData');
+        this.state = JSON.parse(localData);
 
         this.setState({
             items,
@@ -115,37 +142,83 @@ class App extends React.Component {
         
         let name = e.target.name;
         let value = e.target.value;
+        
+                let items = [...this.state.items];
+        
+        
+        
+        // We put old object to array
+   /*     items.push({
+            username: this.state.username,
+            email: this.state.email,
+            birthday: this.state.birthday,
+            checkbox: this.state.checkbox,
+            picture: this.state.picture,
+            formvalid: this.state.formvalid
+        }); */
 
+        
+        
         this.setState({
-            [name]: value
-        })
+            items,
+            formvalid: true
+        });
+        
+        // Every time when push to button we put to local data
+       // localStorage.setItem('localData', JSON.stringify(this.state));
+     //   let localData = localStorage.getItem('localData');
+   //     this.state = JSON.parse(localData);
+
+
+        if (this.state.formvalid === true) {
+            this.setState({
+                [name]: value
+            })
+        }
+  //      this.state = {[name]: value};
     };
 
     render() {
-
-        if (this.state.formvalid === false ) { 
+        
+        let localData = localStorage.getItem('localData');
+        if (typeof localData !== 'undefined') {
+            let proba = JSON.parse(localData);
+            if (proba !== null) {
+                if (proba.formvalid !== null) {
+                    if (proba.formvalid === false) {
+                        this.state=proba;
+                    } else {
+                        if (proba.formvalid === false) {
+                     this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: true, items: [] }; 
+                        }
+                        localStorage.setItem('localData', JSON.stringify(this.state));
+                        localData = localStorage.getItem('localData');
+                   
+                    
+                    }
+                } 
+            }  else {
+                   this.state= { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: true, items: [] }; 
+                    localStorage.setItem('localData', JSON.stringify(this.state));
+                    localData = localStorage.getItem('localData');
+                }
+        } else { 
              this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formvalid: true,
                 items:
                     [
                       {
                         "username": "ignat99",
                         "email": "ignat99@gmail.com",
-                        "birthday": "",
-                        "checkbox": "",
-                        "picture": "",
-                        "formvalid": true
+                        "birthday": "10/02/2021",
+                        "checkbox": "Yes",
+                        "picture": "picture1",
+                        "formvalid": false
                       }
                     ]
             };       
-        
- 
-        localStorage.setItem('localData', JSON.stringify(this.state));
+  //      localStorage.setItem('localData', JSON.stringify(this.state));
         this.state.formvalid = true;
-        }
-//        let localData = localStorage.getItem('localData');
-//        this.state = JSON.parse(localData);
-        
-        
+        }  
         
         return (
             <BrowserRouter>          
@@ -155,13 +228,18 @@ class App extends React.Component {
                         <p className="text-leader">
                             Welcome to Metro 4 for ReactJS App!
                         </p>
-                        <Panel>
+                        <Panel caption={'Panel'} clsContent={'bg-light p-4'} icon={'rocket'} iconPrefix={'fa fa-'} clsIcon={'fg-yellow no-border'} clsDropdownToggle={'no-border marker-light'} clsCaption={'text-bold'} clsTitle={'bg-gray fg-white'} >
+
+                            <Icon name="rocket" cls="fg-orange" size="5x"/>
                         
                             <ContactForm  
                                 handleFormSubmit={ this.handleFormSubmit } 
                                 handleInputChange={ this.handleInputChange }
                                 newUsername={ this.state.username } 
-                                newEmail={ this.state.email } 
+                                newEmail={ this.state.email }
+                                newBirthday={ this.state.birthday }
+                                newCheckbox={ this.state.checkbox }
+                                newPicture={ this.state.picture }
                                 />
                         </Panel>
                         <ContactTable items={ this.state.items }/>
