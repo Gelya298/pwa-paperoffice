@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './future-512.png';
 import './App.css';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
-import ContactTable from './ContactTable';
 import ContactMemoryTable from './ContactMemoryTable';
 import ContactForm from './ContactForm';
-import { Grid, Panel } from 'metro4-react';
-import { Icon }  from 'metro4-react';
+import { Grid, Panel, Icon} from 'metro4-react';
+
 
 const Page = ({ title }) => (
     <div className="App">
@@ -242,8 +241,9 @@ class App extends React.Component {
                                 newPicture={ this.state.picture }
                                 />
                         </Panel>
-                        <ContactTable items={ this.state.items }/>
-                        <ContactMemoryTable items={ this.state.items }/>
+                        <Panel>
+                            <ContactMemoryTable items={ this.state.items }/>
+                        </Panel>
                     </Grid>
                 </div>          
                 <Route path="/" component={Home}/>
