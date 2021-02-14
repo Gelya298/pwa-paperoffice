@@ -5,7 +5,8 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 import ContactTable from './ContactTable';
 import ContactMemoryTable from './ContactMemoryTable';
 import ContactForm from './ContactForm';
-import { Grid, Panel } from 'metro4-react';
+import { Grid, Panel, } from 'metro4-react';
+import {Colors} from 'metro4-react';
 import { Icon }  from 'metro4-react';
 
 const Page = ({ title }) => (
@@ -20,7 +21,6 @@ const Page = ({ title }) => (
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-    data-role="tile" class="bg-grey">
     Microservice, GraphQL, mvn, ./gradlew, Java, Python, SpringBoot, HTML, CSS, Drakon/UML, REST IP,
     CURD, H2 database, MySQL, PostqreSQL, screen, JSON, Linux, bash, SQLite, Hibernate, Lombok, REST
     API, Swagger, JSON, OpenAPI, Velneo, Metro-UI-CSS,
