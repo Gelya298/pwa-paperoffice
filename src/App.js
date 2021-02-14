@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './panda.png';
 import './App.css';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import ContactTable from './ContactTable';
@@ -10,19 +10,28 @@ import { Icon }  from 'metro4-react';
 
 const Page = ({ title }) => (
     <div className="App">
+    <a href="https://github.com/Gelya298/Metro4-Examples"
+            data-role="tile" class="bg-grey">
+        <span class="mif-github icon"></span>
+        <span class="branding-bar">Github</span>
+    </a>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+    data-role="tile" class="bg-grey">
+    Microservice, GraphQL, mvn, ./gradlew, Java, Python, SpringBoot, HTML, CSS, Drakon/UML, REST IP,
+    CURD, H2 database, MySQL, PostqreSQL, screen, JSON, Linux, bash, SQLite, Hibernate, Lombok, REST
+    API, Swagger, JSON, OpenAPI, Velneo, Metro-UI-CSS,
         <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
-        </a>
+          ReactJS
+        </a> PWA, Gatsby, JSX, jQuery, AJAX.
       </header>
       <p className="App-intro">
         This is the {title} page.
@@ -96,7 +105,8 @@ class App extends React.Component {
     render() {
         this.state = { username: '', email: '', birthday: '', checkbox: '', picture: '', formValid: false, items: [] };
         return (
-            <BrowserRouter>          
+            <BrowserRouter>  
+            <Route path="/" component={Home}/>
                 <div className="App">
                     <Grid className="h-100 d-flex flex-align-center flex-justify-center">
                         <h1>Simple contact administration</h1>
@@ -117,7 +127,6 @@ class App extends React.Component {
                         <ContactMemoryTable items={ this.state.items }/>
                     </Grid>
                 </div>          
-                <Route path="/" component={Home}/>
             </BrowserRouter>           
         )
     }
